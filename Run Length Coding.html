@@ -1,0 +1,93 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="renderer" content="webkit" />
+    <link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACyUlEQVQ4jWWTzWtcZRTGf+d93ztz5yMTm9optiXawYAGZ1WlFRcifpRqigsRuxYpCC4KoYuChepC8B/wDxDXYoS4UWxBLWnxg37YkprBpElbZ2gSZ6aTzJ173/e4uAG/HjicxeH8zsMDR0IICqBZRlhagm4XxmrIo5OYSgWA0OsTbq8ggwFMTGAbDbAWAAkhqF9dI5ubI2lMkdXGMaOEqNPGTexCgyfr9cn27EWjAnZjnXh1BffmG5h6Hcl6PfXnPmA0sYvoyjVsp016sMTo+EGCeRV8RuHyAoXr15CtAX7fAbInniQaDnBnz+LC/DxmcRH3wjJ2ZYTtGegqbqmFr52nsOYg84gGULCdNvbuHSiX8RfOY9+vls9lz12i8PYK4cUB4WqM+8PBUPDPPsDdckgeUy4FGW5DkhDSFCfXb+J+L+FfKaCtiOhmcSccMBeLoIAA4z7vf1rEe9jeghs3cEhOtScO4B/2fx8ySjg6hJ89TKbo0T4YRX4sw9AgV0qIVwzNJnYzwqSG6G7OG+3PSF7eIr5l4Z0NdCpBvxgnLMZ4UXzVo++to89MY5iZgWoNDCACQOGOo/hNJbf8SEooKvQN8l0F7UWEVgx7BDn+EsYeO4Z/+hBa2lnIGRgP3IvQtkPma+jhLXQqQVoRdneKxkXsoTpG4hg5dQo/PY2Wy7mLHQhdi2wbmO0gV0vwW4wMDeHXEixbxPyCAbCNBjI7S3iqiY7VwNgcNDDI5TJ8X0Wff4DuS9HHUszJPvpTBGzkAADbbMLp0/gjRwj1Oho5MAK7Pdy3sOmQtQjuR+ilGHNmDHgt/wX+Id/poJ9+hlm4iGzehjMtwudVzMcOHe6FhXW0O0AeKmFmPoIQgv63fJLoaP4rTT88qdkP+zX7+nENfk5DuKchXFCfvaXpJ5Mawrv6Pwf/ctNexVS/RSpF4HWgtDNZBr4EDvMXms5Vi8WsJg8AAAAASUVORK5CYII=" />
+    <style>html, body {margin: 0;padding: 0;border: 0;width: 100%;height: 100%;min-width: 990px;min-height: 635px;}</style>
+</head>
+<body>
+    <script>
+/**
+ * # 游程编码算法
+ * # Run Length Coding Algorithm
+ *
+ * @author      zhangxx<20437023@qq.com>
+ * @version     1.0
+ * @since       1.0
+ * Date         19-02-18
+ * Time         01:31
+ */
+        document.writeln('[Run Length Coding]<br /><br />\r\n');
+        var src='abbcccddddeeeeeffffffggggggghhhhhhhhiiiiiiiiijjjjjjjjjjkkkkkkkkkkkllllllllllllmmmmmmmmmmmmmnnnnnnnnnnnnnnoooooooooooooooppppppppppppppppqqqqqqqqqqqqqqqqqrrrrrrrrrrrrrrrrrrsssssssssssssssssssttttttttttttttttttttuuuuuuuuuuuuuuuuuuuuuvvvvvvvvvvvvvvvvvvvvvvwwwwwwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyzzzzzzzzzzzzzzzzzzzzzzzzzzABBCCCDDDDEEEEEFFFFFFGGGGGGGHHHHHHHHIIIIIIIIIJJJJJJJJJJKKKKKKKKKKKLLLLLLLLLLLLMMMMMMMMMMMMMNNNNNNNNNNNNNNOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPPQQQQQQQQQQQQQQQQQRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTTUUUUUUUUUUUUUUUUUUUUUVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWWWWWWWWWWWWWWWWXXXXXXXXXXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYYYYYYYYYYYZZZZZZZZZZZZZZZZZZZZZZZZZZ';
+        document.writeln('source string length:',src.length,'<br />\r\n', `<pre>${src}</pre><br />`);
+        function encode(str){
+            if(src.length<=1)return str;
+            var ch=str[0];
+            var item=[ch];
+            var items=[];
+            for(var i=1;i<src.length;i++){
+                if(ch==str[i]){
+                    item.push(ch);
+                    continue;
+                }
+                items.push(item.length>1?`${ch}${item.length}`:`${ch}`);
+                ch=str[i];
+                item=[ch];
+            }
+            items.push(item.length>1?`${ch}${item.length}`:`${ch}`);
+            return items.join('_');
+        }
+        var enstr=encode(src);
+        document.writeln('encode string length:',enstr.length,`# ${parseInt(enstr.length/src.length*100)}%`,'<br />\r\n', `<pre>${enstr}</pre><br />`);
+        function decode(str){
+            var items=[];
+            var item="";
+            var parts=str.split('_');
+            while(parts.length>0){
+                var part=parts[0];
+                parts.splice(0,1);
+                if(1==part.length){
+                    items.push(part);
+                    continue;
+                }
+                var ch=part[0];
+                var len=parseInt(part.substring(1));
+                item="";
+                while(item.length<len){
+                    item+=ch;
+                }
+                items.push(item);
+            }
+            return items.join('');
+        }
+        var destr=decode(enstr);
+        document.writeln('decode string length:',destr.length,'<br />\r\n', `<pre>${destr}</pre><br />`);
+        //document.writeln(`match:${src === destr}<br />`);
+
+        function compare(str,dst){
+            if(str.length!=dst.length)return false;
+            var chars1=str.split('');
+            var chars2=dst.split('');
+            while(chars1.length>0){
+                if(chars1[0]==chars2[0]){
+                    chars1.splice(0,1);
+                    chars2.splice(0,1);
+                    continue;
+                }
+                document.writeln(`match:<pre>${chars1.join('')}</pre><br />`);
+                document.writeln(`match:<pre>${chars2.join('')}</pre><br />`);
+                return false;
+                break;
+            }
+            return true;
+        }
+        document.writeln(`match:<pre>${compare(src,destr)}</pre><br />`);
+    </script>
+
+</body>
+</html>
